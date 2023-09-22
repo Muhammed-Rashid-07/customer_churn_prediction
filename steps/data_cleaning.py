@@ -24,7 +24,8 @@ def cleaning_data(df:pd.DataFrame) -> Tuple[
         # Instantiate the FeatureEncoding strategy
         feature_encode = FeatureEncoding()
         df_encoded = feature_encode.handle_data(data)  
-
+        logging.info(df_encoded.columns)
+        logging.info("columns:",len(df_encoded))
         # Instantiate the DataDivideStrategy strategy
         split_data = DataDivideStrategy()
         X_train, X_test, y_train, y_test = split_data.handle_data(df_encoded)

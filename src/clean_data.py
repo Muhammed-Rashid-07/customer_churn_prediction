@@ -23,8 +23,14 @@ class DataPreprocessing(DataStrategy):
     def handle_data(self, df: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
         try:
             # Remove rows with missing values and a specific column
-            df.dropna(inplace=True)
+            columns_to_replace = ['MultipleLines', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
+            for column in columns_to_replace:
+                df[column] = df[column].replace('No internet service', 'No')
+            df['MultipleLines'] = df['MultipleLines'].replace('No phone service','No')
             df.drop(['customerID'],axis=1,inplace=True)
+            df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce').astype(float)
+            logging.info("length of df: ",len(df.columns))
+            df.dropna(inplace=True)
             return df
         except Exception as e:
             logging.error("Error in Preprocessing",e)

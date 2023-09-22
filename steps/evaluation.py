@@ -57,13 +57,9 @@ def evaluate_model(
         
         accuracy_score_class = Accuracy_score()
         accuracy_score = accuracy_score_class.evaluate_model(y_true=y_test, y_pred=y_pred)
-        
-        
-        
-        logging.info("accuracy_score:",accuracy_score)
     
         return confusion_matrix, classification_report, accuracy_score, precision_score, recall_score
     
     except Exception as e:
-        logging.error("Error in evaluating model",e)
+        logging.error(e)
         raise e    

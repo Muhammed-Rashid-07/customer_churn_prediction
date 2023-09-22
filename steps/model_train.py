@@ -41,7 +41,7 @@ def train_model(
         return trained_model
     
     except Exception as e:
-        logging.error("Error in step training model",e)
+        logging.error(e)
         raise e           
             
     
