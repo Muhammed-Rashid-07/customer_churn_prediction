@@ -1,11 +1,11 @@
 from zenml import pipeline
-
-
 from steps.ingest_data import ingest_df
 from steps.data_cleaning import cleaning_data
 from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 import logging
+import warnings
+warnings.filterwarnings("ignore")
 
 #Define a ZenML pipeline called training_pipeline.
 @pipeline(enable_cache=False)

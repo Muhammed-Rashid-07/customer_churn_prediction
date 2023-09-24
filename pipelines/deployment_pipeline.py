@@ -12,13 +12,13 @@ from zenml.integrations.mlflow.model_deployers.mlflow_model_deployer import (
 from zenml.integrations.mlflow.services import MLFlowDeploymentService
 from zenml.integrations.mlflow.steps import mlflow_model_deployer_step
 from zenml.steps import BaseParameters, Output
-from src.clean_data import FeatureEncoding
 from .utils import get_data_for_test
 from steps.data_cleaning import cleaning_data
 from steps.evaluation import evaluate_model
 from steps.ingest_data import ingest_df
 from steps.model_train import train_model
-
+import warnings
+warnings.filterwarnings("ignore")
 # Define Docker settings with MLflow integration
 docker_settings = DockerSettings(required_integrations = {MLFLOW})
 
@@ -161,14 +161,11 @@ def predictor(
     data = json.loads(data)
     data.pop("columns")
     data.pop("index")
-    columns_for_df =['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges',
-       'gender_Male', 'Partner_Yes', 'Dependents_Yes', 'PhoneService_Yes',
-       'MultipleLines_Yes', 'InternetService_Fiber optic',
-       'InternetService_No', 'OnlineSecurity_Yes', 'OnlineBackup_Yes',
-       'DeviceProtection_Yes', 'TechSupport_Yes', 'StreamingTV_Yes',
-       'StreamingMovies_Yes', 'Contract_One year', 'Contract_Two year',
-       'PaperlessBilling_Yes', 'PaymentMethod_Credit card (automatic)',
-       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check']
+    columns_for_df =['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
+       'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
+       'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
+       'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
+       'MonthlyCharges', 'TotalCharges']
     df = pd.DataFrame(data["data"], columns=columns_for_df)
     json_list = json.loads(json.dumps(list(df.T.to_dict().values())))
     data = np.array(json_list)

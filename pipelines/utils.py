@@ -1,7 +1,7 @@
 import logging
 
 import pandas as pd 
-from src.clean_data import DataPreprocessing, FeatureEncoding
+from src.clean_data import DataPreprocessing, LabelEncoding
 
 
 # Function to get data for testing purposes
@@ -13,10 +13,10 @@ def get_data_for_test():
         data = data_preprocessing.handle_data(df)  
         
         # Instantiate the FeatureEncoding strategy
-        feature_encode = FeatureEncoding()
-        df_encoded = feature_encode.handle_data(data) 
-        df_encoded.drop(['Churn_Yes'],axis=1,inplace=True)
-        logging.info(df_encoded.columns)
+        label_encode = LabelEncoding()
+        df_encoded = label_encode.handle_data(data) 
+        df_encoded.drop(['Churn'],axis=1,inplace=True)
+        
         result = df_encoded.to_json(orient="split")
         return result
     except Exception as e:

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from src.clean_data import DataPreprocessing,DataDivideStrategy,FeatureEncoding
+from src.clean_data import DataPreprocessing,DataDivideStrategy,LabelEncoding
 import logging
 from typing_extensions import Annotated
 from typing import Tuple
@@ -22,7 +22,7 @@ def cleaning_data(df:pd.DataFrame) -> Tuple[
         data = data_preprocessing.handle_data(df)  
         
         # Instantiate the FeatureEncoding strategy
-        feature_encode = FeatureEncoding()
+        feature_encode = LabelEncoding()
         df_encoded = feature_encode.handle_data(data)  
         logging.info(df_encoded.columns)
         logging.info("columns:",len(df_encoded))

@@ -49,15 +49,19 @@ def evaluate_model(
         
         recall_score_class = Recall_Score()
         recall_score = recall_score_class.evaluate_model(y_pred=y_pred, y_true=y_test)
-        mlflow.log_metric("Recall_score ",recall_score)
+        logging.info("Recall_score",recall_score)
         
         precision_score_class = Precision_Score()
         precision_score = precision_score_class.evaluate_model(y_pred=y_pred,y_true=y_test)
-        mlflow.log_metric("Precision_score ",precision_score)
+        logging.info("Precision score",precision_score)
+        
+        f1_score_class = F1_Score()
+        f1_score = f1_score_class.evaluate_model(y_true=y_test,y_pred=y_pred)
+        logging.info("F1 score", f1_score)
         
         accuracy_score_class = Accuracy_score()
         accuracy_score = accuracy_score_class.evaluate_model(y_true=y_test, y_pred=y_pred)
-    
+        logging.info("Accuracy score",accuracy_score)
         return confusion_matrix, classification_report, accuracy_score, precision_score, recall_score
     
     except Exception as e:

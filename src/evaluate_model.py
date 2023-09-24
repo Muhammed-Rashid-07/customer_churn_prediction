@@ -106,10 +106,12 @@ class Precision_Score(Evaluate):
             logging.error("Error in calculation of precision_score",e)
             raise e
         
+        
+        
 class F1_Score(Evaluate):
     def evaluate_model(self, y_true: np.ndarray, y_pred: np.ndarray):
         """
-        Generates and returns a F1 score for a model's predictions.
+        Generates and returns an F1 score for a model's predictions.
 
         Args:
             y_true (np.ndarray): True labels.
@@ -119,12 +121,13 @@ class F1_Score(Evaluate):
             f1_score: float
         """
         try:
-            f1_scr = f1_score(y_pred=y_pred,y_true=y_true)
-            logging("F1 score: ",f1_scr)
-            return float(f1_scr)
+            f1_scr = f1_score(y_pred=y_pred, y_true=y_true)
+            logging.info("F1 score: ", f1_scr)  # Corrected logging line
+            return f1_scr
         except Exception as e:
-            logging.info("Error in calculating F1 score",e)
-            raise e            
+            logging.error("Error in calculating F1 score", e)
+            raise e
+  
         
         
 class Recall_Score(Evaluate):
